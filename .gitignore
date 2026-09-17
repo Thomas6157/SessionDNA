@@ -1,0 +1,18 @@
+# Environnement Python local
+.venv/
+
+# Fichiers générés par Python et Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Données sportives personnelles et modèles générés
+data/
+models/
+
+# Secrets locaux éventuels
+.env
+
+# Fichiers système
+.DS_Store
+Thumbs.db
