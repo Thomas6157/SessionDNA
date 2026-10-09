@@ -1,0 +1,42 @@
+# Environnement Python local
+.venv/
+
+# Fichiers générés par Python et Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Données sportives personnelles et modèles générés
+data/
+models/
+
+# Secrets locaux éventuels
+.env
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Sessions Garmin : ne jamais publier ces fichiers
+.secrets/
+.garminconnect/
+garmin_tokens.json
+
+# Construction locale de l’application
+app/node_modules/
+app/dist/
+app/.tools/
+app/*.tsbuildinfo
+.pytest_cache/
+.ruff_cache/
+.tools/
+
+# Personal configuration and local documentation
+src/planning_preferences.json
+.env.*
+!.env.example
+docs/private/
+*.ics
+*.fit
+*.gpx
+*.tcx
