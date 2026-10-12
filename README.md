@@ -6,7 +6,7 @@
 
 I am preparing for an Ironman in 2027. SessionDNA grew from a practical question: how can I use my own training data to understand the structure and variety of my sessions while developing my data science skills?
 
-The project is a personal learning and development environment. It is not a validated coaching or medical system.
+The project is a personal learning and development environment.
 
 ## Objectives
 
@@ -36,7 +36,7 @@ Raw activities, location traces, calendars, account sessions, personal preferenc
 
 ## Technologies
 
-Core data work: **Python, Pandas, NumPy, Matplotlib and scikit-learn**. The repository also contains local API and web-interface components. Dependencies should be described according to their actual use, rather than treating every installed package as a demonstrated skill.
+Core data work: **Python, Pandas, NumPy, Matplotlib and scikit-learn**. The repository also contains local API and web-interface components.
 
 ## Project structure
 
@@ -66,11 +66,9 @@ The current project metadata specifies Python 3.13. Use a virtual environment an
 ```sh
 python -m venv .venv
 # Windows PowerShell:
-.\\.venv\\Scripts\\Activate.ps1
+.\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 ```
-
-Activate the virtual environment before the installation command. The project’s existing Windows workflow uses `.\.venv\Scripts\Activate.ps1`.
 
 To inspect an activity you own:
 
@@ -85,7 +83,7 @@ python src/update_triathlon.py
 python src/serve_sessiondna.py
 ```
 
-The source snapshot excludes personal planning preferences. src/planning_preferences.json must be supplied locally before building the dashboard. These application commands depend on local inputs and configuration. They are not presented as a verified public-demo installation. Read the script options before running data imports or synchronisation.
+The source snapshot excludes personal planning preferences. `src/planning_preferences.json` must be supplied locally before building the dashboard. These application commands depend on local inputs and configuration. They are not presented as a verified public-demo installation. Read the script options before running data imports or synchronisation.
 
 ## Limitations and next steps
 
