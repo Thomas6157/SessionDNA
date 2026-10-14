@@ -1,0 +1,237 @@
+{
+  "schema_version": "sessiondna.integrations.v1",
+  "integrations": [
+    {
+      "name": "React",
+      "repo": "react/react",
+      "role": "Interface en cinq écrans, composants et état réactif.",
+      "status": "Intégré",
+      "concepts": [
+        "composants",
+        "état",
+        "TypeScript"
+      ]
+    },
+    {
+      "name": "Radix UI",
+      "repo": "radix-ui/primitives",
+      "role": "Onglets et fenêtres de détail accessibles au clavier.",
+      "status": "Intégré",
+      "concepts": [
+        "accessibilité",
+        "composition"
+      ]
+    },
+    {
+      "name": "Lucide",
+      "repo": "lucide-icons/lucide",
+      "role": "Icônes cohérentes dans toute l’application.",
+      "status": "Intégré",
+      "concepts": [
+        "système visuel"
+      ]
+    },
+    {
+      "name": "React Hook Form",
+      "repo": "react-hook-form/react-hook-form",
+      "role": "Formulaires des contraintes de planning et retours.",
+      "status": "Intégré",
+      "concepts": [
+        "validation",
+        "saisie"
+      ]
+    },
+    {
+      "name": "TanStack Query",
+      "repo": "TanStack/query",
+      "role": "Chargement, cache mémoire et actualisation des réponses du serveur.",
+      "status": "Intégré",
+      "concepts": [
+        "requêtes asynchrones",
+        "cache"
+      ]
+    },
+    {
+      "name": "TanStack Table",
+      "repo": "TanStack/table",
+      "role": "Tableau des activités avec colonnes et pagination.",
+      "status": "Intégré",
+      "concepts": [
+        "données tabulaires",
+        "pagination"
+      ]
+    },
+    {
+      "name": "dnd-kit",
+      "repo": "clauderic/dnd-kit",
+      "role": "Déplacement des séances entre créneaux du jour prescrit.",
+      "status": "Intégré",
+      "concepts": [
+        "interaction",
+        "contraintes"
+      ]
+    },
+    {
+      "name": "Motion",
+      "repo": "motiondivision/motion",
+      "role": "Transitions légères respectant la préférence de réduction des mouvements.",
+      "status": "Intégré",
+      "concepts": [
+        "animation",
+        "accessibilité"
+      ]
+    },
+    {
+      "name": "Apache ECharts",
+      "repo": "apache/echarts",
+      "role": "Courbes des mesures et affichage des contributions du modèle.",
+      "status": "Intégré",
+      "concepts": [
+        "séries temporelles",
+        "visualisation"
+      ]
+    },
+    {
+      "name": "MapLibre",
+      "repo": "maplibre/maplibre-gl-js",
+      "role": "Tracé GPS chargé à la demande sur un fond neutre, sans fournisseur de tuiles.",
+      "status": "Intégré",
+      "concepts": [
+        "GeoJSON",
+        "rendu cartographique"
+      ]
+    },
+    {
+      "name": "Turf",
+      "repo": "Turfjs/turf",
+      "role": "Cadrage et longueur géométrique du tracé GPS affiché.",
+      "status": "Intégré",
+      "concepts": [
+        "géométrie",
+        "distance géodésique"
+      ]
+    },
+    {
+      "name": "FastAPI",
+      "repo": "fastapi/fastapi",
+      "role": "API locale pour les analyses, imports, bilans et sauvegardes.",
+      "status": "Intégré",
+      "concepts": [
+        "HTTP",
+        "validation",
+        "architecture client-serveur"
+      ]
+    },
+    {
+      "name": "DuckDB",
+      "repo": "duckdb/duckdb",
+      "role": "Agrégations par semaine et sport, export Parquet contrôlé.",
+      "status": "Intégré",
+      "concepts": [
+        "SQL analytique",
+        "formats en colonnes"
+      ]
+    },
+    {
+      "name": "ruptures",
+      "repo": "deepcharles/ruptures",
+      "role": "Recherche de changements statistiques, en séparant pauses et trous.",
+      "status": "Intégré",
+      "concepts": [
+        "segmentation",
+        "PELT",
+        "pénalisation"
+      ]
+    },
+    {
+      "name": "SHAP",
+      "repo": "shap/shap",
+      "role": "Contributions des six variables à la sortie de la forêt existante ; additivité vérifiée.",
+      "status": "Intégré",
+      "concepts": [
+        "explicabilité",
+        "contribution versus causalité"
+      ]
+    },
+    {
+      "name": "MLflow",
+      "repo": "mlflow/mlflow",
+      "role": "Copie locale de l’expérience gelée et de ses empreintes ; pas de réentraînement.",
+      "status": "Intégré",
+      "concepts": [
+        "traçabilité",
+        "reproductibilité"
+      ]
+    },
+    {
+      "name": "scikit-learn",
+      "repo": "scikit-learn/scikit-learn",
+      "role": "Modèle de course et imputation existants conservés.",
+      "status": "Existant conservé",
+      "concepts": [
+        "apprentissage supervisé",
+        "séparation train/test"
+      ]
+    },
+    {
+      "name": "Garmin Connect",
+      "repo": "cyberjunky/python-garminconnect",
+      "role": "Import incrémental avec la session locale et prévention des doublons.",
+      "status": "Existant conservé",
+      "concepts": [
+        "authentification",
+        "idempotence"
+      ]
+    },
+    {
+      "name": "Pydantic AI",
+      "repo": "pydantic/pydantic-ai",
+      "role": "Option de sélection de faits vérifiés du bilan, avec sortie structurée et sources.",
+      "status": "Intégré, désactivé par défaut",
+      "concepts": [
+        "sortie structurée",
+        "validation",
+        "limites des LLM"
+      ]
+    },
+    {
+      "name": "Ollama",
+      "repo": "ollama/ollama",
+      "role": "Fournisseur local optionnel pour cette sélection de faits.",
+      "status": "Connecteur prévu ; modèle à configurer",
+      "concepts": [
+        "inférence locale",
+        "API compatible OpenAI"
+      ]
+    },
+    {
+      "name": "uv",
+      "repo": "astral-sh/uv",
+      "role": "Dépendances Python décrites dans pyproject.toml et verrouillées dans uv.lock.",
+      "status": "Intégré",
+      "concepts": [
+        "environnement",
+        "reproductibilité"
+      ]
+    },
+    {
+      "name": "Ruff",
+      "repo": "astral-sh/ruff",
+      "role": "Contrôles statiques ciblés sur les erreurs de code.",
+      "status": "Intégré",
+      "concepts": [
+        "analyse statique"
+      ]
+    },
+    {
+      "name": "OWASP Cheat Sheet Series",
+      "repo": "OWASP/CheatSheetSeries",
+      "role": "Principes appliqués : origine vérifiée, chemins bornés, taille limitée, imports validés.",
+      "status": "Pratiques appliquées ; pas une bibliothèque",
+      "concepts": [
+        "frontières de confiance",
+        "validation des entrées"
+      ]
+    }
+  ]
+}

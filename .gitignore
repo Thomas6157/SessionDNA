@@ -16,3 +16,17 @@ models/
 # Fichiers système
 .DS_Store
 Thumbs.db
+
+# Sessions Garmin : ne jamais publier ces fichiers
+.secrets/
+.garminconnect/
+garmin_tokens.json
+
+# Construction locale de l’application
+app/node_modules/
+app/dist/
+app/.tools/
+app/*.tsbuildinfo
+.pytest_cache/
+.ruff_cache/
+.tools/

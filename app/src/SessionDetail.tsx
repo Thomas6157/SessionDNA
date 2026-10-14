@@ -1,0 +1,32 @@
+import {useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {useQuery} from '@tanstack/react-query';
+import {Check,Save} from 'lucide-react';
+import type {Activity,Feedback,Session,TrainingWeek} from './types';
+import {api} from './lib/api';
+import {day,duration,num,paceRange,range,statuses} from './lib/format';
+import {useStateStore} from './lib/state';
+import {Message,Modal,SportBadge} from './components';
+import {questionAnswers,questionValues,stepDuration} from './lib/training';
+export const feedbackKey=(week:TrainingWeek)=>'sessiondna-feedback-v1-'+week.manifest.source_sha256;
+export function SessionDetail({session,week,onClose}:{session:Session;week:TrainingWeek;onClose:()=>void}){
+ const state=useStateStore();const saved=(state.items[feedbackKey(week)]||{}) as Record<string,Feedback>;const old=saved[session.id];const [message,setMessage]=useState('');
+ const {register,handleSubmit,reset,formState:{errors,isDirty}}=useForm<Feedback & {question_answers:string[]}>({defaultValues:{...(old||{status:'planned',actual_duration_min:null,rpe:null,fatigue:null,pain:null,sleep_hours:null,notes:'',activity_id:null,answers:{}}),question_answers:questionValues(session.feedback_questions||[],old?.answers)}});
+ const options=useQuery({queryKey:['activities',session.sport,session.date],queryFn:()=>api<{items:Activity[];total:number}>('/api/activities?limit=100&sport='+encodeURIComponent(session.sport)+'&start='+session.date+'&end='+session.date)});
+ const numeric=(max:number)=>({setValueAs:(v:string)=>v===''?null:Number(v),min:{value:0,message:'Valeur positive attendue'},max:{value:max,message:'Maximum '+max}});
+ function submit(formValues:Feedback & {question_answers:string[]}){const {question_answers,...fields}=formValues;const values={...fields,answers:questionAnswers(session.feedback_questions||[],question_answers,old?.answers)};try{state.save(feedbackKey(week),{...saved,[session.id]:{...values,activity_id:values.activity_id||null,updated_at:new Date().toISOString()}});reset({...values,question_answers});setMessage('Retour enregistré. Tu peux fermer cette fiche.');}catch(e){setMessage(e instanceof Error?e.message:'Échec du stockage');}}
+ return <Modal open onClose={()=>{if(!isDirty||confirm('Quitter sans enregistrer ce retour ?'))onClose();}} title={session.title} description={day(session.date,true)+' · '+duration(session.planned_duration_min)}>
+ <div className="detail-intro"><SportBadge sport={session.sport}/>{range(session.target_session_rpe)&&<span>RPE attendu {range(session.target_session_rpe)} / 10</span>}</div><p className="lead">{session.objective}</p>
+ <>{session.scheduling.constraints?.map((note,i)=><p className="small" key={i}>{note}</p>)}{session.scheduling.linked_session_id&&<Message>Séance liée : {week.plan.sessions.find(s=>s.id===session.scheduling.linked_session_id)?.title}. Vérifier l’ordre et la transition.</Message>}{week.manifest.audit?.sessions?.find(s=>s.id===session.id)?.notes?.map((note,i)=><Message key={i}>{note}</Message>)}</><h3>Le déroulé complet</h3><div className="blocks">{session.blocks.map((block,i)=><section className="block" key={i}><div className="block-title"><span>{String(i+1).padStart(2,'0')}</span><h4>{block.name}</h4>{block.repeat>1&&<b>× {block.repeat}</b>}</div>{block.steps.map((step,j)=><div className="step" key={j}><div><strong>{step.type}</strong><span>{step.duration_sec!=null?stepDuration(step.duration_sec):''}{step.distance_m!=null?' · '+num(step.distance_m,0)+' m':''}</span></div><p>{step.instructions}</p><div className="targets">{range(step.target_rpe)&&<span>RPE {range(step.target_rpe)}</span>}{range(step.target_power_w)&&<span>{range(step.target_power_w,' W')}</span>}{range(step.target_heart_rate_bpm)&&<span>{range(step.target_heart_rate_bpm,' bpm')}</span>}{step.target_pace_sec_per_km&&<span>{paceRange(step.target_pace_sec_per_km,' / km')}</span>}{step.target_pace_sec_per_100m&&<span>{paceRange(step.target_pace_sec_per_100m,' / 100 m')}</span>}</div></div>)}</section>)}</div>
+ {!!session.equipment?.length&&<p><strong>Matériel :</strong> {session.equipment.join(', ')}</p>}{[...(session.execution_notes||[]),...(session.adjustment_options||[])].map((note,i)=><p className="small" key={i}>{note}</p>)}
+ <div className="section-heading"><div><span className="eyebrow">Après la séance</span><h3>Ton ressenti compte</h3></div><Check size={24}/></div><form onSubmit={handleSubmit(submit)} className="form-grid">
+ <label className="wide">Séance réalisée<select {...register('status')}>{Object.entries(statuses).map(([v,label])=><option key={v} value={v}>{label}</option>)}</select></label>
+ <label>Durée réelle (min)<input type="number" step="1" {...register('actual_duration_min',numeric(1440))}/>{errors.actual_duration_min&&<small className="field-error">{errors.actual_duration_min.message}</small>}</label>
+ <label>RPE ressenti / 10<input type="number" step="0.5" {...register('rpe',numeric(10))}/>{errors.rpe&&<small className="field-error">{errors.rpe.message}</small>}</label>
+ <label>Fatigue / 10<input type="number" {...register('fatigue',numeric(10))}/>{errors.fatigue&&<small className="field-error">{errors.fatigue.message}</small>}</label><label>Douleur / 10<input type="number" {...register('pain',numeric(10))}/>{errors.pain&&<small className="field-error">{errors.pain.message}</small>}</label>
+ <label>Sommeil (heures)<input type="number" step="0.25" {...register('sleep_hours',numeric(24))}/>{errors.sleep_hours&&<small className="field-error">{errors.sleep_hours.message}</small>}</label>
+ <label>Relier une activité Garmin<select {...register('activity_id')}><option value="">Aucune liaison</option>{options.data?.items.map(a=><option value={a.id} key={a.id}>{day(a.start_utc)} · {duration(a.timer_min)} · {num(a.distance_km)} km</option>)}</select></label>
+ <label className="wide">Notes, sensations, adaptation<textarea rows={4} {...register('notes',{maxLength:12000})} placeholder="Ce qui s’est bien passé, ce qui a changé…"/></label>
+ {session.feedback_questions?.map((q,i)=><label className="wide" key={q}>{q}<textarea rows={2} {...register(`question_answers.${i}`)}/></label>)}
+ {message&&<div className="wide"><Message>{message}</Message></div>}<button className="primary wide" type="submit"><Save size={17}/>Enregistrer mon retour</button></form><p className="footnote">Ce retour ne modifie pas la séance programmée. RPE : 1 = très facile, 10 = effort maximal.</p></Modal>;
+}

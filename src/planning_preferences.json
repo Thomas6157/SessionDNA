@@ -1,0 +1,16 @@
+{
+  "wake": "07:00",
+  "bed": "22:00",
+  "sleep_note": "Base choisie : sommeil de 22 h 30 à 7 h ; fin des activités à 22 h pour garder 30 min avant le coucher. Modifiable, sans garantie sur la durée de sommeil réelle.",
+  "pool": {
+    "name": "Centre aquatique de Levallois — bassin sportif",
+    "source": "https://www.ville-levallois.fr/sports-loisirs/centre-aquatique-de-levallois/",
+    "checked": "2026-09-29",
+    "valid_from": "2026-09-28",
+    "valid_until": "2026-10-04",
+    "scope": "Horaires hors vacances scolaires. Vérifiés pour la semaine en cours ; fermetures exceptionnelles à contrôler.",
+    "evacuation_min": 30,
+    "changing_min": 15,
+    "hours": {"1": ["12:00", "22:00"], "2": ["07:00", "21:00"], "3": ["09:00", "22:00"], "4": ["07:00", "21:00"], "5": ["09:00", "21:00"], "6": ["09:00", "19:00"], "0": ["09:00", "18:30"]}
+  }
+}
